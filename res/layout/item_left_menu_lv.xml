@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dip" >
+
 
     <TextView
-        android:id="@+id/tv_left_menu_title"
-        android:drawablePadding="8dip"
+        android:enabled="false"
         android:layout_gravity="center"
-        android:drawableLeft="@drawable/menu_arr_select"
+        android:id="@+id/tv_left_menu_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/item_menu_icon_selector"
+        android:drawablePadding="12dip"
         android:text="新闻"
-        android:textColor="#f00"
+        android:textColor="@drawable/item_text_menu_color_selector"
         android:textSize="24sp" />
 
 </LinearLayout>

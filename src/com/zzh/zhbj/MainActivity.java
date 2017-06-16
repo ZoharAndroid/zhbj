@@ -56,7 +56,7 @@ public class MainActivity extends SlidingFragmentActivity {
 	public LeftMenuFragment getLeftMenuFragment() {
 		FragmentManager manager = getSupportFragmentManager();
 		LeftMenuFragment fragment = (LeftMenuFragment) manager
-				.findFragmentByTag(GlobalContacts.TAG_CONTENT_FRAGMENT);
+				.findFragmentByTag(GlobalContacts.TAG_LEFT_MENU_FRAGMENT);
 		return fragment;
 	}
 

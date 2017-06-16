@@ -55,7 +55,7 @@ public class ContentFragment extends BaseFragment {
 		vpPagerContent.setAdapter(new PagerContentAdapter());
 		
 		//默认加载第一个界面
-		mPagerList.get(0).initData();;
+		mPagerList.get(0).initData();
 		
 		//点击5geTab可以切换界面
 		rgTabGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -97,13 +97,11 @@ public class ContentFragment extends BaseFragment {
 			@Override
 			public void onPageScrolled(int position, float positionOffset,
 					int positionOffsetPixels) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void onPageScrollStateChanged(int state) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -119,13 +117,11 @@ public class ContentFragment extends BaseFragment {
 
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return mPagerList.size();
 		}
 
 		@Override
 		public boolean isViewFromObject(View view, Object object) {
-			// TODO Auto-generated method stub
 			return view == object;
 		}
 		
