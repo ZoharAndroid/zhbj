@@ -4,7 +4,7 @@ public interface GlobalContacts {
 	public static final String FIRST_GUIDE = "is_guide_first";// sp引导页记录的key
 
 	// baseURL
-	public static final String BASE_URL = "http://192.168.1.2:8080/zhbj";
+	public static final String BASE_URL = "http://192.168.1.4:8080/zhbj";
 	//public static final String BASE_URL = "http://127.0.0.1:8080/zhbj";
 	public static final String CATEGORIES_URL = BASE_URL + "/categories.json";
 	

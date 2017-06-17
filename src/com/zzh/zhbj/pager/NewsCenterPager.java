@@ -1,5 +1,7 @@
 package com.zzh.zhbj.pager;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
@@ -16,8 +18,15 @@ import com.zzh.zhbj.MainActivity;
 import com.zzh.zhbj.domain.NewsJsonData;
 import com.zzh.zhbj.fragment.LeftMenuFragment;
 import com.zzh.zhbj.global.GlobalContacts;
+import com.zzh.zhbj.menudetail.ActivityMenuDetailPager;
+import com.zzh.zhbj.menudetail.BaseMenuDeitalPager;
+import com.zzh.zhbj.menudetail.NewsMenuDetailPager;
+import com.zzh.zhbj.menudetail.PhotoMenuDetailPager;
+import com.zzh.zhbj.menudetail.TopicMenuDetailPager;
 
 public class NewsCenterPager extends BasePager {
+	private ArrayList<BaseMenuDeitalPager> mMenuDetailPagerList;
+	private NewsJsonData fromJson;// JSon数据
 
 	public NewsCenterPager(Activity activity) {
 		super(activity);
@@ -32,13 +41,6 @@ public class NewsCenterPager extends BasePager {
 		// 可以SlidingMenu侧滑菜单效果
 		// SlidingMenu可滑动
 		setSlidingMenuEnabled(true);
-
-		// 初始化Home主页内容
-		TextView tv = new TextView(mActivity);
-		tv.setText("新闻中心");
-		tv.setTextSize(25);
-		tv.setTextColor(Color.RED);
-		flPagerContent.addView(tv);
 
 		getDataFromServer();
 	}
@@ -75,12 +77,36 @@ public class NewsCenterPager extends BasePager {
 	// 解析JSon数据
 	private void pareJsonData(String result) {
 		Gson gson = new Gson();
-		NewsJsonData fromJson = gson.fromJson(result, NewsJsonData.class);
-		// 把解析结果都传到LeftMenuFragment中
+		fromJson = gson.fromJson(result, NewsJsonData.class);
 
+		// 把解析结果都传到LeftMenuFragment中
 		MainActivity mainUi = (MainActivity) mActivity;
 		LeftMenuFragment leftMenuFragment = mainUi.getLeftMenuFragment();
 		leftMenuFragment.setMenuJsonData(fromJson);
 
+		// 初始化4个侧滑菜单详情页面
+		mMenuDetailPagerList = new ArrayList<BaseMenuDeitalPager>();
+		mMenuDetailPagerList.add(new NewsMenuDetailPager(mActivity));
+		mMenuDetailPagerList.add(new TopicMenuDetailPager(mActivity));
+		mMenuDetailPagerList.add(new PhotoMenuDetailPager(mActivity));
+		mMenuDetailPagerList.add(new ActivityMenuDetailPager(mActivity));
+
+		// 把NewsCetnerPager页面设置为侧滑菜单的第一项
+		setCurrentMenuDetailPager(0);
+	}
+
+	/**
+	 * 设置当前侧滑菜单详情页
+	 * 
+	 * @param position
+	 */
+	public void setCurrentMenuDetailPager(int position) {
+		BaseMenuDeitalPager pager = mMenuDetailPagerList.get(position);// 获取当前要显示的菜单详情页
+		flPagerContent.removeAllViews();//把之前添加的Fragment全部删除
+		flPagerContent.addView(pager.mRootView);// 将菜单详情页的布局设置给帧布局
+		
+		
+		//重新设置标题
+		tvTitle.setText(fromJson.getData().get(position).getTitle());
 	}
 }

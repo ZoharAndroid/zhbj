@@ -11,9 +11,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.zzh.zhbj.MainActivity;
 import com.zzh.zhbj.R;
 import com.zzh.zhbj.domain.NewsJsonData;
 import com.zzh.zhbj.domain.NewsJsonData.NewsJsonMenu;
+import com.zzh.zhbj.pager.NewsCenterPager;
 
 /**
  * 左侧菜单Fragment
@@ -35,29 +38,43 @@ public class LeftMenuFragment extends BaseFragment {
 	public View initFragmentView() {
 		View view = View.inflate(mActivity, R.layout.fragment_menu_left, null);
 		lvLeftMenu = (ListView) view.findViewById(R.id.lv_left_menu);
-		
-		lvLeftMenu.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				System.out.println("这个方法调用了吗？");
-				mCurrentPostion = position;
-				System.out.println(mCurrentPostion);
-				// 中心刷新Listview数据
-				mMenuAdapte.notifyDataSetChanged();
-				Toast.makeText(mActivity, "你点击了:"+position, 0).show();
-			}
-			
-		});
 		return view;
 	}
 
 	@Override
 	public void initData() {
-		
-	}
+		lvLeftMenu.setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mCurrentPostion = position;
+				// 中心刷新Listview数据
+				mMenuAdapte.notifyDataSetChanged();
+				
+				setCurrentMenuDetailPager(position);
+				
+				toggleSlidingMenu();//隐藏SlidingMenu
+			}
+
+		});
+	}
+	
+	/**
+	 * 触发切换SlidingMenu
+	 */
+	private void toggleSlidingMenu() {
+		MainActivity mainUi = (MainActivity) mActivity;
+		SlidingMenu slidingMenu = mainUi.getSlidingMenu();
+		slidingMenu.toggle();
+	}
+	
+	/**
+	 * ListView的Adapter
+	 * 
+	 * @author Administrator
+	 *
+	 */
 	class LeftMenuAdpater extends BaseAdapter {
 
 		@Override
@@ -100,6 +117,17 @@ public class LeftMenuFragment extends BaseFragment {
 		mMenuList = newsData.data;
 		mMenuAdapte = new LeftMenuAdpater();
 		lvLeftMenu.setAdapter(mMenuAdapte);
+	}
+	
+	/**
+	 * @param position
+	 */
+	public void setCurrentMenuDetailPager(int position){
+		MainActivity mainUi = (MainActivity) mActivity;
+		ContentFragment contentFragment = mainUi.getContentFragment();//从MainActivity中获取CotentFragment
+		NewsCenterPager newsCenterPager = contentFragment.getNewsCenterPager();//通过ContentFragment中获取NewsCenterPager
+		newsCenterPager.setCurrentMenuDetailPager(position);//把点击获取的Menu的位置传递过去
+		
 	}
 
 }

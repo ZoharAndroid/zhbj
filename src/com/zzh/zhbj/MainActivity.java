@@ -1,6 +1,7 @@
 package com.zzh.zhbj;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.Window;
 
@@ -16,8 +17,8 @@ public class MainActivity extends SlidingFragmentActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		initSlidingMenu();	// 初始化SlidingMenu
-		initFragment();		// 加载Fragment
+		initSlidingMenu(); // 初始化SlidingMenu
+		initFragment(); // 加载Fragment
 	}
 
 	/**
@@ -45,11 +46,11 @@ public class MainActivity extends SlidingFragmentActivity {
 		// 3、设置触摸能够触发Menu的位置：一般设置为全屏
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		// 4、如果想到到Menu里面能够进行滑动恢复，就需要设置下面的
-		menu.setTouchModeBehind(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		// menu.setTouchModeBehind(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		// 4、设置侧滑栏的宽度
-		// menu.setBehindWidth(200);//这个是设置菜单的宽度
-		menu.setBehindOffset(200);// 这个是设置空白区占据的宽度
+		menu.setBehindWidth(400);// 这个是设置菜单的宽度
+		// menu.setBehindOffset(200);// 这个是设置空白区占据的宽度
 	}
 
 	// 从MainActivity中获取LeftMenuFragment
@@ -57,6 +58,12 @@ public class MainActivity extends SlidingFragmentActivity {
 		FragmentManager manager = getSupportFragmentManager();
 		LeftMenuFragment fragment = (LeftMenuFragment) manager
 				.findFragmentByTag(GlobalContacts.TAG_LEFT_MENU_FRAGMENT);
+		return fragment;
+	}
+	
+	public ContentFragment getContentFragment(){
+		FragmentManager manager = getSupportFragmentManager();
+		ContentFragment fragment = (ContentFragment)manager.findFragmentByTag(GlobalContacts.TAG_CONTENT_FRAGMENT);
 		return fragment;
 	}
 

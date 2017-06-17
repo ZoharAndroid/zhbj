@@ -139,4 +139,12 @@ public class ContentFragment extends BaseFragment {
 		
 	}
 
+	/**
+	 * 从集合从获得NewsCenterPager页面
+	 * 
+	 * @return
+	 */
+	public NewsCenterPager getNewsCenterPager(){
+		return (NewsCenterPager) mPagerList.get(1);
+	}
 }
