@@ -114,7 +114,7 @@ public class LeftMenuFragment extends BaseFragment {
 
 	// 给LeftMenu传送Json数据
 	public void setMenuJsonData(NewsJsonData newsData) {
-		mMenuList = newsData.data;
+		mMenuList = newsData.getData();
 		mMenuAdapte = new LeftMenuAdpater();
 		lvLeftMenu.setAdapter(mMenuAdapte);
 	}

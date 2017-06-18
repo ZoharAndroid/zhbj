@@ -86,7 +86,7 @@ public class NewsCenterPager extends BasePager {
 
 		// 初始化4个侧滑菜单详情页面
 		mMenuDetailPagerList = new ArrayList<BaseMenuDeitalPager>();
-		mMenuDetailPagerList.add(new NewsMenuDetailPager(mActivity));
+		mMenuDetailPagerList.add(new NewsMenuDetailPager(mActivity,fromJson.getData().get(0).getChildren()));
 		mMenuDetailPagerList.add(new TopicMenuDetailPager(mActivity));
 		mMenuDetailPagerList.add(new PhotoMenuDetailPager(mActivity));
 		mMenuDetailPagerList.add(new ActivityMenuDetailPager(mActivity));
@@ -105,8 +105,10 @@ public class NewsCenterPager extends BasePager {
 		flPagerContent.removeAllViews();//把之前添加的Fragment全部删除
 		flPagerContent.addView(pager.mRootView);// 将菜单详情页的布局设置给帧布局
 		
-		
 		//重新设置标题
 		tvTitle.setText(fromJson.getData().get(position).getTitle());
+		
+		//初始化页签详情页
+		pager.initData();
 	}
 }

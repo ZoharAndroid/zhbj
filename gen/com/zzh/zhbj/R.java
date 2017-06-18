@@ -172,7 +172,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int title_red_bg=0x7f020023;
     }
     public static final class id {
-        public static final int action_settings=0x7f04001a;
+        public static final int action_settings=0x7f04001b;
         public static final int btn_guide_activity_start=0x7f040007;
         public static final int btn_title_menu_pager=0x7f04000c;
         public static final int fl_pager_content=0x7f04000e;
@@ -193,11 +193,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int right=0x7f040001;
         public static final int rl_bg_splash=0x7f04000b;
         public static final int selected_view=0x7f040005;
-        public static final int slidingmenumain=0x7f040019;
+        public static final int slidingmenumain=0x7f04001a;
         public static final int tv_left_menu_title=0x7f040017;
         public static final int tv_title_pager=0x7f04000d;
         public static final int vp_activity_guide=0x7f040006;
         public static final int vp_content=0x7f04000f;
+        public static final int vp_news_menu_detail=0x7f040019;
         public static final int vw_read_point_guide=0x7f040009;
     }
     public static final class layout {
@@ -209,7 +210,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int fragment_menu_left=0x7f030005;
         public static final int item_left_menu_lv=0x7f030006;
         public static final int left_menu=0x7f030007;
-        public static final int slidingmenumain=0x7f030008;
+        public static final int news_menu_detail=0x7f030008;
+        public static final int slidingmenumain=0x7f030009;
     }
     public static final class menu {
         public static final int main=0x7f080000;

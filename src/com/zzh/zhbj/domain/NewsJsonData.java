@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class NewsJsonData {
 	private int retcode;//返回码
 	
-	public ArrayList<NewsJsonMenu> data;//data数组
+	private  ArrayList<NewsJsonMenu> data;//data数组
 	
 	
 	public int getRetcode() {
@@ -94,7 +94,7 @@ public class NewsJsonData {
 		
 	}
 	
-	class NewsJsonTab{
+	public class NewsJsonTab{
 		private String id;
 		private String title;
 		private int type;
