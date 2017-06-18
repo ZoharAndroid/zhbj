@@ -76,6 +76,7 @@ public class NewsCenterPager extends BasePager {
 
 	// ½âÎöJSonÊı¾İ
 	private void pareJsonData(String result) {
+		
 		Gson gson = new Gson();
 		fromJson = gson.fromJson(result, NewsJsonData.class);
 
