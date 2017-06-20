@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.viewpagerindicator.TabPageIndicator;
+import com.zzh.zhbj.MainActivity;
 import com.zzh.zhbj.R;
 import com.zzh.zhbj.domain.NewsJsonData.NewsJsonTab;
 
@@ -44,6 +47,34 @@ public class NewsMenuDetailPager extends BaseMenuDeitalPager {
 
 		ibTabNext = (ImageButton) view.findViewById(R.id.btn_tab_next);
 		indicator = (TabPageIndicator) view.findViewById(R.id.indicator);
+		
+		//设置ViewPager滑动监听事件
+		//mNewsViewPager.setOnPageChangeListener(listener);//注意：当ViewPager和Indicator在一起使用时，设置监听事件是要针对Indicator设置
+		indicator.setOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int position) {
+				MainActivity mainUi = (MainActivity) mActivity;
+				SlidingMenu menu = mainUi.getSlidingMenu();
+				if (position==0) {
+					menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+				}else{
+					menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+				}
+			}
+			
+			@Override
+			public void onPageScrolled(int position, float positionOffset,
+					int positionOffsetPixels) {
+				
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int state) {
+				
+			}
+		});
+		
 		return view;
 	}
 
@@ -67,7 +98,6 @@ public class NewsMenuDetailPager extends BaseMenuDeitalPager {
 
 			@Override
 			public void onClick(View v) {
-
 				int currentItem = mNewsViewPager.getCurrentItem();// 获取当前页签位置
 				mNewsViewPager.setCurrentItem(currentItem + 1);
 			}
