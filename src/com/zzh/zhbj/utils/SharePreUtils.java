@@ -40,4 +40,33 @@ public class SharePreUtils {
 				Context.MODE_PRIVATE);
 		sp.edit().putBoolean(key, value).commit();
 	}
+	
+
+	/**
+	 * 获取SP文件中的String值
+	 * 
+	 * @param context
+	 * @param key
+	 * @param defValue
+	 * @return
+	 */
+	public static String getSPString(Context context, String key,
+			String defValue) {
+		SharedPreferences sp = context.getSharedPreferences(GUIDE_SP_NAME,
+				Context.MODE_PRIVATE);
+		return sp.getString(key, defValue);
+	}
+
+	/**
+	 * 将String值写入到sp文件中
+	 * 
+	 * @param context
+	 * @param key
+	 * @param value
+	 */
+	public static void setSPString(Context context, String key, String value) {
+		SharedPreferences sp = context.getSharedPreferences(GUIDE_SP_NAME,
+				Context.MODE_PRIVATE);
+		sp.edit().putString(key, value).commit();
+	}
 }
