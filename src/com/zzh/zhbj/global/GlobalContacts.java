@@ -11,4 +11,7 @@ public interface GlobalContacts {
 	//两个Fragment的标签TAG
 	public static final String TAG_LEFT_MENU_FRAGMENT ="tag_left_menu_fragment";
 	public static final String TAG_CONTENT_FRAGMENT="tag_content_fragment";
+	
+	//新闻内容加载地址
+	public static final String NEWS_URL = "news_url";
 }

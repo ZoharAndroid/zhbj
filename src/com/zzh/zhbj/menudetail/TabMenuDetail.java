@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.R.color;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -27,6 +28,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.viewpagerindicator.CirclePageIndicator;
+import com.zzh.zhbj.NewsDetailShowActivity;
 import com.zzh.zhbj.R;
 import com.zzh.zhbj.domain.NewsJsonData.NewsJsonTab;
 import com.zzh.zhbj.domain.TabNewsDetailData;
@@ -125,11 +127,17 @@ public class TabMenuDetail extends BaseMenuDeitalPager {
 				}
 				//mNewsAdapter.notifyDataSetChanged();
 				changeReadedState(view);//实现局部item颜色变幻
+				
+				//跳转到新闻详情页面
+				Intent intent = new Intent(mActivity, NewsDetailShowActivity.class);
+				intent.putExtra(GlobalContacts.NEWS_URL, mNewsList.get(position).getUrl());
+				mActivity.startActivity(intent);
 			}
 		});
 		return view;
 	}
 
+	
 	
 	protected void changeReadedState(View view) {
 		TextView tvTitle = (TextView) view.findViewById(R.id.tv_news_title);

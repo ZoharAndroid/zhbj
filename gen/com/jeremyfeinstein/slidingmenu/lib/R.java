@@ -8,10 +8,10 @@ package com.jeremyfeinstein.slidingmenu.lib;
 
 public final class R {
 	public static final class layout {
-		public static final int slidingmenumain = 0x7f03000d;
+		public static final int slidingmenumain = 0x7f03000e;
 	}
 	public static final class id {
-		public static final int slidingmenumain = 0x7f04002a;
+		public static final int slidingmenumain = 0x7f04002f;
 		public static final int margin = 0x7f040007;
 		public static final int fullscreen = 0x7f040008;
 		public static final int left = 0x7f040005;
