@@ -24,6 +24,8 @@ public class BasePager {
 	public ImageButton btnTitleMemu;// 标题栏上的侧滑菜单按钮
 	public FrameLayout flPagerContent;// 整个ViewPager的每一个Pager的Frament
 
+	public ImageButton btnPhotoStype;// 组图图片显示转换
+
 	public Activity mActivity;
 
 	public BasePager(Activity activity) {
@@ -40,15 +42,17 @@ public class BasePager {
 		flPagerContent = (FrameLayout) mRootView
 				.findViewById(R.id.fl_pager_content);
 		
-		//监听标题栏的ImageButton按钮
+		btnPhotoStype = (ImageButton) mRootView.findViewById(R.id.btn_list_griad_icon);
+		
+		// 监听标题栏的ImageButton按钮
 		btnTitleMemu.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				toggleSlidingMenu();//点击标题栏的按钮，触发侧滑菜单栏
+				toggleSlidingMenu();// 点击标题栏的按钮，触发侧滑菜单栏
 			}
 		});
-		
+
 	}
 
 	/**
@@ -57,27 +61,27 @@ public class BasePager {
 	public void initData() {
 
 	}
-	
+
 	/**
 	 * 切换SlidingMenu的状态
 	 */
-	public void toggleSlidingMenu(){
+	public void toggleSlidingMenu() {
 		MainActivity activity = (MainActivity) mActivity;
 		SlidingMenu menu = activity.getSlidingMenu();
-		menu.toggle();//// 切换状态, 显示时隐藏, 隐藏时显示
+		menu.toggle();// // 切换状态, 显示时隐藏, 隐藏时显示
 	}
-	
+
 	/**
 	 * 设置SlidingMenu是否可以滑动
 	 * 
 	 * @param enable
 	 */
-	public void setSlidingMenuEnabled(boolean enable){
+	public void setSlidingMenuEnabled(boolean enable) {
 		MainActivity activity = (MainActivity) mActivity;
 		SlidingMenu menu = activity.getSlidingMenu();
 		if (enable) {
 			menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		}else{
+		} else {
 			menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 		}
 	}

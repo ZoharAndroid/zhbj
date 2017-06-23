@@ -2,15 +2,18 @@ package com.zzh.zhbj.menudetail;
 
 import java.util.ArrayList;
 
-import android.R.color;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -35,6 +38,7 @@ import com.zzh.zhbj.domain.TabNewsDetailData;
 import com.zzh.zhbj.domain.TabNewsDetailData.TabDetailData.DetailNewsData;
 import com.zzh.zhbj.domain.TabNewsDetailData.TabDetailData.TopNewsData;
 import com.zzh.zhbj.global.GlobalContacts;
+import com.zzh.zhbj.utils.CacheUtils;
 import com.zzh.zhbj.utils.SharePreUtils;
 import com.zzh.zhbj.view.RefreashListView;
 import com.zzh.zhbj.view.RefreashListView.OnRefreashListener;
@@ -125,20 +129,20 @@ public class TabMenuDetail extends BaseMenuDeitalPager {
 					SharePreUtils.setSPString(mActivity, "item_news_read_id",
 							stringIds);
 				}
-				//mNewsAdapter.notifyDataSetChanged();
-				changeReadedState(view);//实现局部item颜色变幻
-				
-				//跳转到新闻详情页面
-				Intent intent = new Intent(mActivity, NewsDetailShowActivity.class);
-				intent.putExtra(GlobalContacts.NEWS_URL, mNewsList.get(position).getUrl());
+				// mNewsAdapter.notifyDataSetChanged();
+				changeReadedState(view);// 实现局部item颜色变幻
+
+				// 跳转到新闻详情页面
+				Intent intent = new Intent(mActivity,
+						NewsDetailShowActivity.class);
+				intent.putExtra(GlobalContacts.NEWS_URL, mNewsList
+						.get(position).getUrl());
 				mActivity.startActivity(intent);
 			}
 		});
 		return view;
 	}
 
-	
-	
 	protected void changeReadedState(View view) {
 		TextView tvTitle = (TextView) view.findViewById(R.id.tv_news_title);
 		tvTitle.setTextColor(Color.GRAY);
@@ -146,6 +150,12 @@ public class TabMenuDetail extends BaseMenuDeitalPager {
 
 	@Override
 	public void initData() {
+		// 先判断是否有缓存
+		String cache = CacheUtils.getCache(mActivity, url);
+		if (!TextUtils.isEmpty(cache)) {
+			// 如果有缓存,直接解析缓存
+			praseJsonData(cache, false);
+		}
 		// 从服务器获取数据
 		getDataFromServer();
 	}
@@ -161,7 +171,8 @@ public class TabMenuDetail extends BaseMenuDeitalPager {
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				String result = responseInfo.result;
 				praseJsonData(result, false);
-
+				// 加入缓存
+				CacheUtils.setCache(mActivity, url, result);
 				// 下拉刷新完成之后隐藏
 				mListViewNews.onRefreashComplete();
 			}
@@ -272,8 +283,32 @@ public class TabMenuDetail extends BaseMenuDeitalPager {
 				mNewsAdapter = new NewsAdapter();
 				mListViewNews.setAdapter(mNewsAdapter);
 			}
+
+			if (mHandler == null) {
+				mHandler = new Handler() {
+					@Override
+					public void handleMessage(Message msg) {
+						super.handleMessage(msg);
+
+						int currentItem = mViewPager.getCurrentItem();
+						if (currentItem < mTopNewsList.size() - 1) {
+							// 如果小于头条新闻的大小，直接加1
+							currentItem++;
+						} else {
+							currentItem = 0;// 如果是最后一个，直接从头开始
+						}
+						mViewPager.setCurrentItem(currentItem);
+
+						mHandler.sendEmptyMessageDelayed(0, 3000);
+					}
+				};
+				mHandler.sendEmptyMessageDelayed(0, 3000);
+			}
+
 		}
 	}
+
+	private Handler mHandler;
 
 	/**
 	 * ListView新闻数据列表
@@ -328,12 +363,12 @@ public class TabMenuDetail extends BaseMenuDeitalPager {
 			holder.tvDate.setText(mNewsList.get(position).getPubdate());
 			// utils.display(holder.ivImage, mNewsList.get(position)
 			// .getListimage());
-			
+
 			String stringIds = SharePreUtils.getSPString(mActivity,
 					"item_news_read_id", "");
 			if (stringIds.contains(mNewsList.get(position).getId())) {
-				 holder.tvTitle.setTextColor(0x99000000);
-			}else{
+				holder.tvTitle.setTextColor(0x99000000);
+			} else {
 				holder.tvTitle.setTextColor(Color.BLACK);
 			}
 			return convertView;
@@ -381,6 +416,30 @@ public class TabMenuDetail extends BaseMenuDeitalPager {
 					.get(position).getTopimage();
 			// utils.display(image, topUrl);
 			container.addView(image);
+
+			// 设置头条新闻的触摸监听:如果一直按住头条新闻图片，就不自动进行轮播，一松开就自动进行轮播
+			image.setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						// 清空handler的消息，停止自动轮播
+						mHandler.removeCallbacksAndMessages(null);
+						break;
+					case MotionEvent.ACTION_CANCEL:
+						mHandler.sendEmptyMessageDelayed(0, 3000);
+						break;
+					case MotionEvent.ACTION_UP:
+						mHandler.sendEmptyMessageDelayed(0, 3000);
+						break;
+
+					default:
+						break;
+					}
+					return true;
+				}
+			});
 			return image;
 		}
 

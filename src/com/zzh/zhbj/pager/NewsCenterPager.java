@@ -3,9 +3,8 @@ package com.zzh.zhbj.pager;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -23,7 +22,14 @@ import com.zzh.zhbj.menudetail.BaseMenuDeitalPager;
 import com.zzh.zhbj.menudetail.NewsMenuDetailPager;
 import com.zzh.zhbj.menudetail.PhotoMenuDetailPager;
 import com.zzh.zhbj.menudetail.TopicMenuDetailPager;
+import com.zzh.zhbj.utils.CacheUtils;
 
+/**
+ * 新闻
+ * 
+ * @author Administrator
+ *
+ */
 public class NewsCenterPager extends BasePager {
 	private ArrayList<BaseMenuDeitalPager> mMenuDetailPagerList;
 	private NewsJsonData fromJson;// JSon数据
@@ -41,7 +47,17 @@ public class NewsCenterPager extends BasePager {
 		// 可以SlidingMenu侧滑菜单效果
 		// SlidingMenu可滑动
 		setSlidingMenuEnabled(true);
-
+		
+		if (TextUtils.isEmpty(CacheUtils.getCache(mActivity, GlobalContacts.CATEGORIES_URL))) {
+			//如果缓存为空，就从服务器中获取数据
+			getDataFromServer();
+		}else{
+			//如果有缓存，直接解析
+			pareJsonData(CacheUtils.getCache(mActivity, GlobalContacts.CATEGORIES_URL));
+			
+		}
+		
+		//不管有没有缓存，先把服务器最新的数据先更新了
 		getDataFromServer();
 	}
 
@@ -59,6 +75,8 @@ public class NewsCenterPager extends BasePager {
 						// 请求成功
 						String result = responseInfo.result;
 						pareJsonData(result);
+						//然后写入缓存
+						CacheUtils.setCache(mActivity, GlobalContacts.CATEGORIES_URL, result);
 					}
 
 					@Override
@@ -89,7 +107,7 @@ public class NewsCenterPager extends BasePager {
 		mMenuDetailPagerList = new ArrayList<BaseMenuDeitalPager>();
 		mMenuDetailPagerList.add(new NewsMenuDetailPager(mActivity,fromJson.getData().get(0).getChildren()));
 		mMenuDetailPagerList.add(new TopicMenuDetailPager(mActivity));
-		mMenuDetailPagerList.add(new PhotoMenuDetailPager(mActivity));
+		mMenuDetailPagerList.add(new PhotoMenuDetailPager(mActivity,btnPhotoStype));
 		mMenuDetailPagerList.add(new ActivityMenuDetailPager(mActivity));
 
 		// 把NewsCetnerPager页面设置为侧滑菜单的第一项
@@ -111,5 +129,11 @@ public class NewsCenterPager extends BasePager {
 		
 		//初始化页签详情页
 		pager.initData();
+		
+		if (pager instanceof PhotoMenuDetailPager) {
+			btnPhotoStype.setVisibility(View.VISIBLE);
+		}else{
+			btnPhotoStype.setVisibility(View.INVISIBLE);
+		}
 	}
 }

@@ -16,7 +16,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dip"
             android:background="@null"
-            android:padding="5dip"
+            android:padding="8dip"
             android:src="@drawable/img_menu" />
 
         <TextView
@@ -27,6 +27,17 @@
             android:text="标题栏"
             android:textColor="@android:color/white"
             android:textSize="24sp" />
+        
+         <ImageButton
+             android:layout_alignParentRight="true"
+            android:id="@+id/btn_list_griad_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:background="@null"
+            android:padding="8dip"
+            android:src="@drawable/icon_pic_grid_type" />
     </RelativeLayout>
 
     <FrameLayout

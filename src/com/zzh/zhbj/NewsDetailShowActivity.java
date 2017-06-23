@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.onekeyshare.OnekeyShareTheme;
 
 import com.mob.MobSDK;
 import com.zzh.zhbj.global.GlobalContacts;

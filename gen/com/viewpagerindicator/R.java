@@ -8,15 +8,15 @@ package com.viewpagerindicator;
 
 public final class R {
 	public static final class drawable {
-		public static final int vpi__tab_unselected_holo = 0x7f020067;
-		public static final int vpi__tab_selected_holo = 0x7f020063;
-		public static final int vpi__tab_unselected_focused_holo = 0x7f020066;
-		public static final int vpi__tab_selected_pressed_holo = 0x7f020064;
-		public static final int vpi__tab_text_color_indicator = 0x7f020065;
-		public static final int vpi__tab_unselected_pressed_holo = 0x7f020068;
-		public static final int news_tab_item_bg_select = 0x7f020019;
-		public static final int vpi__tab_selected_focused_holo = 0x7f020062;
-		public static final int vpi__tab_indicator = 0x7f020061;
+		public static final int vpi__tab_unselected_holo = 0x7f02006a;
+		public static final int vpi__tab_selected_holo = 0x7f020066;
+		public static final int vpi__tab_unselected_focused_holo = 0x7f020069;
+		public static final int vpi__tab_selected_pressed_holo = 0x7f020067;
+		public static final int vpi__tab_text_color_indicator = 0x7f020068;
+		public static final int vpi__tab_unselected_pressed_holo = 0x7f02006b;
+		public static final int news_tab_item_bg_select = 0x7f02001b;
+		public static final int vpi__tab_selected_focused_holo = 0x7f020065;
+		public static final int vpi__tab_indicator = 0x7f020064;
 	}
 	public static final class dimen {
 		public static final int default_line_indicator_stroke_width = 0x7f080004;
