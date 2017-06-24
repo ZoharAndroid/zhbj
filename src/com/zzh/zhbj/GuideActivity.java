@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
 import com.zzh.zhbj.global.GlobalContacts;
+import com.zzh.zhbj.utils.DenstiyUtils;
 import com.zzh.zhbj.utils.SharePreUtils;
 
 public class GuideActivity extends Activity {
@@ -79,9 +80,9 @@ public class GuideActivity extends Activity {
 		for (int i = 0; i < imageIds.length; i++) {
 			View point = new View(this);
 			point.setBackgroundResource(R.drawable.point_gary_guide_activity_shape);
-			LayoutParams params = new LayoutParams(10, 10);
+			LayoutParams params = new LayoutParams(DenstiyUtils.px2dp(this, 10), DenstiyUtils.px2dp(this, 10));
 			if (i > 0) {// 除第一原点以外，每个原点相隔开
-				params.leftMargin = 10;
+				params.leftMargin = DenstiyUtils.px2dp(this, 10);
 			}
 			point.setLayoutParams(params);// 设置原点参数
 			llPointGroup.addView(point);

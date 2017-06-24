@@ -38,8 +38,8 @@
 
         <View
             android:id="@+id/vw_read_point_guide"
-            android:layout_width="10px"
-            android:layout_height="10px" 
+            android:layout_width="10dp"
+            android:layout_height="10dp" 
             android:background="@drawable/point_red_guide_activity_shape"/>
     </RelativeLayout>
 

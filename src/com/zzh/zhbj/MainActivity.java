@@ -48,8 +48,9 @@ public class MainActivity extends SlidingFragmentActivity {
 		// 4、如果想到到Menu里面能够进行滑动恢复，就需要设置下面的
 		// menu.setTouchModeBehind(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
+		int width = getWindowManager().getDefaultDisplay().getWidth();
 		// 4、设置侧滑栏的宽度
-		menu.setBehindWidth(400);// 这个是设置菜单的宽度
+		menu.setBehindWidth(400 * width / 800);// 这个是设置菜单的宽度
 		// menu.setBehindOffset(200);// 这个是设置空白区占据的宽度
 	}
 
@@ -60,10 +61,11 @@ public class MainActivity extends SlidingFragmentActivity {
 				.findFragmentByTag(GlobalContacts.TAG_LEFT_MENU_FRAGMENT);
 		return fragment;
 	}
-	
-	public ContentFragment getContentFragment(){
+
+	public ContentFragment getContentFragment() {
 		FragmentManager manager = getSupportFragmentManager();
-		ContentFragment fragment = (ContentFragment)manager.findFragmentByTag(GlobalContacts.TAG_CONTENT_FRAGMENT);
+		ContentFragment fragment = (ContentFragment) manager
+				.findFragmentByTag(GlobalContacts.TAG_CONTENT_FRAGMENT);
 		return fragment;
 	}
 
