@@ -29,6 +29,7 @@
             android:textSize="24sp" />
         
          <ImageButton
+             android:visibility="invisible"
              android:layout_alignParentRight="true"
             android:id="@+id/btn_list_griad_icon"
             android:layout_width="wrap_content"
