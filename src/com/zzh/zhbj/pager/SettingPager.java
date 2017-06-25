@@ -3,6 +3,8 @@ package com.zzh.zhbj.pager;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class SettingPager extends BasePager {
@@ -12,19 +14,20 @@ public class SettingPager extends BasePager {
 	}
 	@Override
 	public void initData() {
-		//³õÊ¼»¯±êÌâ
-		tvTitle.setText("ÉèÖÃ");
-		//ÉèÖÃÒ³ÃæÒþ²Ø²à»¬²Ëµ¥
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		tvTitle.setText("ï¿½ï¿½ï¿½ï¿½");
+		//ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½Ø²à»¬ï¿½Ëµï¿½
 		btnTitleMemu.setVisibility(View.GONE);
-		//½ûÖ¹SlidingMenu²à»¬²Ëµ¥Ð§¹û
-		//SlidingMenu²»¿É»¬¶¯
+		//ï¿½ï¿½Ö¹SlidingMenuï¿½à»¬ï¿½Ëµï¿½Ð§ï¿½ï¿½
+		//SlidingMenuï¿½ï¿½ï¿½É»ï¿½ï¿½ï¿½
 		setSlidingMenuEnabled(false);
 		
-		//³õÊ¼»¯HomeÖ÷Ò³ÄÚÈÝ
+		//ï¿½ï¿½Ê¼ï¿½ï¿½Homeï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
 		TextView tv = new TextView(mActivity);
-		tv.setText("ÉèÖÃÒ³Ãæ");
+		tv.setText("ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½");
 		tv.setTextSize(25);
 		tv.setTextColor(Color.RED);
+		
 		flPagerContent.addView(tv);
 	}
 }
