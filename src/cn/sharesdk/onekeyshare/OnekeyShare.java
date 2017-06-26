@@ -1,35 +1,34 @@
 /*
- * 官网地站:http://www.mob.com
- * 技术支持QQ: 4006852216
- * 官方微信:ShareSDK   （如果发布新版本的话，我们将会第一时间通过微信将版本更新内容推送给您。如果使用过程中有任何问题，也可以通过微信与我们取得联系，我们将会在24小时内给予回复）
+ * 瀹樼綉鍦扮珯:http://www.mob.com
+ * 鎶�鏈敮鎸丵Q: 4006852216
+ * 瀹樻柟寰俊:ShareSDK   锛堝鏋滃彂甯冩柊鐗堟湰鐨勮瘽锛屾垜浠皢浼氱涓�鏃堕棿閫氳繃寰俊灏嗙増鏈洿鏂板唴瀹规帹閫佺粰鎮ㄣ�傚鏋滀娇鐢ㄨ繃绋嬩腑鏈変换浣曢棶棰橈紝涔熷彲浠ラ�氳繃寰俊涓庢垜浠彇寰楄仈绯伙紝鎴戜滑灏嗕細鍦�24灏忔椂鍐呯粰浜堝洖澶嶏級
  *
- * Copyright (c) 2013年 mob.com. All rights reserved.
+ * Copyright (c) 2013骞� mob.com. All rights reserved.
  */
 
 package cn.sharesdk.onekeyshare;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
 
 import com.mob.MobApplication;
 import com.mob.MobSDK;
 import com.mob.tools.utils.BitmapHelper;
 import com.mob.tools.utils.ResHelper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
-
 /**
-* 快捷分享的入口
+* 蹇嵎鍒嗕韩鐨勫叆鍙�
 * <p>
-* 通过不同的setter设置参数，然后调用{@link #show(Context)}方法启动快捷分享
+* 閫氳繃涓嶅悓鐨剆etter璁剧疆鍙傛暟锛岀劧鍚庤皟鐢▄@link #show(Context)}鏂规硶鍚姩蹇嵎鍒嗕韩
 */
 public class OnekeyShare {
 	private HashMap<String, Object> params;
@@ -40,139 +39,139 @@ public class OnekeyShare {
 		params.put("hiddenPlatforms", new HashMap<String, String>());
 	}
 
-	/** address是接收人地址，仅在信息和邮件使用，否则可以不提供 */
+	/** address鏄帴鏀朵汉鍦板潃锛屼粎鍦ㄤ俊鎭拰閭欢浣跨敤锛屽惁鍒欏彲浠ヤ笉鎻愪緵 */
 	public void setAddress(String address) {
 		params.put("address", address);
 	}
 
 	/**
-	 * title标题，在印象笔记、邮箱、信息、微信（包括好友、朋友圈和收藏）、
-	 * 易信（包括好友、朋友圈）、人人网和QQ空间使用，否则可以不提供
+	 * title鏍囬锛屽湪鍗拌薄绗旇銆侀偖绠便�佷俊鎭�佸井淇★紙鍖呮嫭濂藉弸銆佹湅鍙嬪湀鍜屾敹钘忥級銆�
+	 * 鏄撲俊锛堝寘鎷ソ鍙嬨�佹湅鍙嬪湀锛夈�佷汉浜虹綉鍜孮Q绌洪棿浣跨敤锛屽惁鍒欏彲浠ヤ笉鎻愪緵
 	 */
 	public void setTitle(String title) {
 		params.put("title", title);
 	}
 
-	/** titleUrl是标题的网络链接，仅在人人网和QQ空间使用，否则可以不提供 */
+	/** titleUrl鏄爣棰樼殑缃戠粶閾炬帴锛屼粎鍦ㄤ汉浜虹綉鍜孮Q绌洪棿浣跨敤锛屽惁鍒欏彲浠ヤ笉鎻愪緵 */
 	public void setTitleUrl(String titleUrl) {
 		params.put("titleUrl", titleUrl);
 	}
 
-	/** text是分享文本，所有平台都需要这个字段 */
+	/** text鏄垎浜枃鏈紝鎵�鏈夊钩鍙伴兘闇�瑕佽繖涓瓧娈� */
 	public void setText(String text) {
 		params.put("text", text);
 	}
 
-	/** 获取text字段的值 */
+	/** 鑾峰彇text瀛楁鐨勫�� */
 	public String getText() {
 		return params.containsKey("text") ? String.valueOf(params.get("text")) : null;
 	}
 
-	/** imagePath是本地的图片路径，除Linked-In外的所有平台都支持这个字段 */
+	/** imagePath鏄湰鍦扮殑鍥剧墖璺緞锛岄櫎Linked-In澶栫殑鎵�鏈夊钩鍙伴兘鏀寔杩欎釜瀛楁 */
 	public void setImagePath(String imagePath) {
 		if(!TextUtils.isEmpty(imagePath)) {
 			params.put("imagePath", imagePath);
 		}
 	}
 
-	/** imageUrl是图片的网络路径，新浪微博、人人网、QQ空间和Linked-In支持此字段 */
+	/** imageUrl鏄浘鐗囩殑缃戠粶璺緞锛屾柊娴井鍗氥�佷汉浜虹綉銆丵Q绌洪棿鍜孡inked-In鏀寔姝ゅ瓧娈� */
 	public void setImageUrl(String imageUrl) {
 		if (!TextUtils.isEmpty(imageUrl)) {
 			params.put("imageUrl", imageUrl);
 		}
 	}
 
-	/** url在微信（包括好友、朋友圈收藏）和易信（包括好友和朋友圈）中使用，否则可以不提供 */
+	/** url鍦ㄥ井淇★紙鍖呮嫭濂藉弸銆佹湅鍙嬪湀鏀惰棌锛夊拰鏄撲俊锛堝寘鎷ソ鍙嬪拰鏈嬪弸鍦堬級涓娇鐢紝鍚﹀垯鍙互涓嶆彁渚� */
 	public void setUrl(String url) {
 		params.put("url", url);
 	}
 
-	/** filePath是待分享应用程序的本地路劲，仅在微信（易信）好友和Dropbox中使用，否则可以不提供 */
+	/** filePath鏄緟鍒嗕韩搴旂敤绋嬪簭鐨勬湰鍦拌矾鍔诧紝浠呭湪寰俊锛堟槗淇★級濂藉弸鍜孌ropbox涓娇鐢紝鍚﹀垯鍙互涓嶆彁渚� */
 	public void setFilePath(String filePath) {
 		params.put("filePath", filePath);
 	}
 
-	/** comment是我对这条分享的评论，仅在人人网和QQ空间使用，否则可以不提供 */
+	/** comment鏄垜瀵硅繖鏉″垎浜殑璇勮锛屼粎鍦ㄤ汉浜虹綉鍜孮Q绌洪棿浣跨敤锛屽惁鍒欏彲浠ヤ笉鎻愪緵 */
 	public void setComment(String comment) {
 		params.put("comment", comment);
 	}
 
-	/** site是分享此内容的网站名称，仅在QQ空间使用，否则可以不提供 */
+	/** site鏄垎浜鍐呭鐨勭綉绔欏悕绉帮紝浠呭湪QQ绌洪棿浣跨敤锛屽惁鍒欏彲浠ヤ笉鎻愪緵 */
 	public void setSite(String site) {
 		params.put("site", site);
 	}
 
-	/** siteUrl是分享此内容的网站地址，仅在QQ空间使用，否则可以不提供 */
+	/** siteUrl鏄垎浜鍐呭鐨勭綉绔欏湴鍧�锛屼粎鍦≦Q绌洪棿浣跨敤锛屽惁鍒欏彲浠ヤ笉鎻愪緵 */
 	public void setSiteUrl(String siteUrl) {
 		params.put("siteUrl", siteUrl);
 	}
 
-	/** foursquare分享时的地方名 */
+	/** foursquare鍒嗕韩鏃剁殑鍦版柟鍚� */
 	public void setVenueName(String venueName) {
 		params.put("venueName", venueName);
 	}
 
-	/** foursquare分享时的地方描述 */
+	/** foursquare鍒嗕韩鏃剁殑鍦版柟鎻忚堪 */
 	public void setVenueDescription(String venueDescription) {
 		params.put("venueDescription", venueDescription);
 	}
 
-	/** 分享地纬度，新浪微博、腾讯微博和foursquare支持此字段 */
+	/** 鍒嗕韩鍦扮含搴︼紝鏂版氮寰崥銆佽吘璁井鍗氬拰foursquare鏀寔姝ゅ瓧娈� */
 	public void setLatitude(float latitude) {
 		params.put("latitude", latitude);
 	}
 
-	/** 分享地经度，新浪微博、腾讯微博和foursquare支持此字段 */
+	/** 鍒嗕韩鍦扮粡搴︼紝鏂版氮寰崥銆佽吘璁井鍗氬拰foursquare鏀寔姝ゅ瓧娈� */
 	public void setLongitude(float longitude) {
 		params.put("longitude", longitude);
 	}
 
-	/** 是否直接分享 */
+	/** 鏄惁鐩存帴鍒嗕韩 */
 	public void setSilent(boolean silent) {
 		params.put("silent", silent);
 	}
 
-	/** 设置编辑页的初始化选中平台 */
+	/** 璁剧疆缂栬緫椤电殑鍒濆鍖栭�変腑骞冲彴 */
 	public void setPlatform(String platform) {
 		params.put("platform", platform);
 	}
 
-	/** 设置KakaoTalk的应用下载地址 */
+	/** 璁剧疆KakaoTalk鐨勫簲鐢ㄤ笅杞藉湴鍧� */
 	public void setInstallUrl(String installurl) {
 		params.put("installurl", installurl);
 	}
 
-	/** 设置KakaoTalk的应用打开地址 */
+	/** 璁剧疆KakaoTalk鐨勫簲鐢ㄦ墦寮�鍦板潃 */
 	public void setExecuteUrl(String executeurl) {
 		params.put("executeurl", executeurl);
 	}
 
-	/** 设置微信分享的音乐的地址 */
+	/** 璁剧疆寰俊鍒嗕韩鐨勯煶涔愮殑鍦板潃 */
 	public void setMusicUrl(String musicUrl) {
 		params.put("musicUrl", musicUrl);
 	}
 
-	/** 设置自定义的外部回调 */
+	/** 璁剧疆鑷畾涔夌殑澶栭儴鍥炶皟 */
 	public void setCallback(PlatformActionListener callback) {
 		params.put("callback", callback);
 	}
 
-	/** 返回操作回调 */
+	/** 杩斿洖鎿嶄綔鍥炶皟 */
 	public PlatformActionListener getCallback() {
 		return ResHelper.forceCast(params.get("callback"));
 	}
 
-	/** 设置用于分享过程中，根据不同平台自定义分享内容的回调 */
+	/** 璁剧疆鐢ㄤ簬鍒嗕韩杩囩▼涓紝鏍规嵁涓嶅悓骞冲彴鑷畾涔夊垎浜唴瀹圭殑鍥炶皟 */
 	public void setShareContentCustomizeCallback(ShareContentCustomizeCallback callback) {
 		params.put("customizeCallback", callback);
 	}
 
-	/** 自定义不同平台分享不同内容的回调 */
+	/** 鑷畾涔変笉鍚屽钩鍙板垎浜笉鍚屽唴瀹圭殑鍥炶皟 */
 	public ShareContentCustomizeCallback getShareContentCustomizeCallback() {
 		return ResHelper.forceCast(params.get("customizeCallback"));
 	}
 
-	/** 设置自己图标和点击事件，可以重复调用添加多次 */
+	/** 璁剧疆鑷繁鍥炬爣鍜岀偣鍑讳簨浠讹紝鍙互閲嶅璋冪敤娣诲姞澶氭 */
 	public void setCustomerLogo(Bitmap logo, String label, OnClickListener ocl) {
 		CustomerLogo cl = new CustomerLogo();
 		cl.logo = logo;
@@ -182,24 +181,24 @@ public class OnekeyShare {
 		customers.add(cl);
 	}
 
-	/** 设置一个总开关，用于在分享前若需要授权，则禁用sso功能 */
+	/** 璁剧疆涓�涓�诲紑鍏筹紝鐢ㄤ簬鍦ㄥ垎浜墠鑻ラ渶瑕佹巿鏉冿紝鍒欑鐢╯so鍔熻兘 */
 	public void disableSSOWhenAuthorize() {
 		params.put("disableSSO", true);
 	}
 
-	/** 设置视频网络地址 */
+	/** 璁剧疆瑙嗛缃戠粶鍦板潃 */
 	public void setVideoUrl(String url) {
 		params.put("url", url);
 		params.put("shareType", Platform.SHARE_VIDEO);
 	}
 
-	/** 添加一个隐藏的platform */
+	/** 娣诲姞涓�涓殣钘忕殑platform */
 	public void addHiddenPlatform(String platform) {
 		HashMap<String, String> hiddenPlatforms = ResHelper.forceCast(params.get("hiddenPlatforms"));
 		hiddenPlatforms.put(platform, platform);
 	}
 
-	/** 设置一个将被截图分享的View , surfaceView是截不了图片的*/
+	/** 璁剧疆涓�涓皢琚埅鍥惧垎浜殑View , surfaceView鏄埅涓嶄簡鍥剧墖鐨�*/
 	public void setViewToShare(View viewToShare) {
 		try {
 			Bitmap bm = BitmapHelper.captureView(viewToShare, viewToShare.getWidth(), viewToShare.getHeight());
@@ -209,17 +208,17 @@ public class OnekeyShare {
 		}
 	}
 
-	/** 腾讯微博分享多张图片 */
+	/** 鑵捐寰崥鍒嗕韩澶氬紶鍥剧墖 */
 	public void setImageArray(String[] imageArray) {
 		params.put("imageArray", imageArray);
 	}
 
-	/** 设置在执行分享到QQ或QZone的同时，分享相同的内容腾讯微博 */
+	/** 璁剧疆鍦ㄦ墽琛屽垎浜埌QQ鎴朡Zone鐨勫悓鏃讹紝鍒嗕韩鐩稿悓鐨勫唴瀹硅吘璁井鍗� */
 	public void setShareToTencentWeiboWhenPerformingQQOrQZoneSharing() {
 		params.put("isShareTencentWeibo", true);
 	}
 
-	/** 设置分享界面的样式，目前只有一种，不需要设置 */
+	/** 璁剧疆鍒嗕韩鐣岄潰鐨勬牱寮忥紝鐩墠鍙湁涓�绉嶏紝涓嶉渶瑕佽缃� */
 	public void setTheme(OnekeyShareTheme theme) {
 		params.put("theme", theme.getValue());
 	}
@@ -233,7 +232,7 @@ public class OnekeyShare {
 			MobSDK.init(context.getApplicationContext());
 		}
 
-		// 打开分享菜单的统计
+		// 鎵撳紑鍒嗕韩鑿滃崟鐨勭粺璁�
 		ShareSDK.logDemoEvent(1, null);
 
 		int iTheme = 0;

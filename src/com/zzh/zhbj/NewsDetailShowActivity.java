@@ -39,7 +39,7 @@ public class NewsDetailShowActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//≥ı ºªØShareSDK
-		MobSDK.init(getApplicationContext(), "1ee1f98ace5c8", "b286a8de9d4b90159dc8ad777a91457f");
+		//MobSDK.init(getApplicationContext(), "1ee1f98ace5c8", "b286a8de9d4b90159dc8ad777a91457f");
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_show_news);
